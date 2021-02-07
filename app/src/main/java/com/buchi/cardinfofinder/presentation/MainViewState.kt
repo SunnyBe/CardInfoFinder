@@ -7,5 +7,5 @@ import com.buchi.cardinfofinder.data.model.Card
  * In idle state or when no data is been processed they can be set to null.
  */
 data class MainViewState(
-    val cardDetail: Card? = null,
+    val cardDetail: Card? = null
 )
