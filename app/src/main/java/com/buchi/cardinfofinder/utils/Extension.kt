@@ -1,15 +1,18 @@
 package com.buchi.cardinfofinder.utils
 
 import android.content.Context
-import java.text.SimpleDateFormat
-import java.util.*
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 
-fun Context.dateOnlyFromIsoDate(timestamp: String, pattern: String): String {
-    val df1 = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
-    df1.timeZone = TimeZone.getTimeZone(TimeZone.getDefault().displayName)
-    val string1 = timestamp.replace("\\+0([0-9]){1}\\:00", "+0$100")
-    val result1 = df1.parse(string1)
+fun View.hideKeyboard(inputMethodManager: InputMethodManager) {
+    inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
+}
 
-    val timeForm = SimpleDateFormat(pattern, Locale.ENGLISH)
-    return timeForm.format(result1)
+fun Context.hideKeyboard(view: View) {
+    try {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
 }

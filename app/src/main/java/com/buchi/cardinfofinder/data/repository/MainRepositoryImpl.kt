@@ -8,8 +8,9 @@ import com.buchi.cardinfofinder.utils.ReusableFlow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
+import javax.inject.Inject
 
-class MainRepositoryImpl constructor(
+class MainRepositoryImpl @Inject constructor(
     private val context: Context,
     private val networkClient: ApiService,
 ) : MainRepository {

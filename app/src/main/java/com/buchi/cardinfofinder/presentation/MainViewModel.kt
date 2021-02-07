@@ -5,8 +5,9 @@ import com.buchi.cardinfofinder.data.repository.MainRepository
 import com.buchi.cardinfofinder.utils.ResultState
 import com.buchi.listdetail.utils.SingleLiveEvent
 import kotlinx.coroutines.flow.*
+import javax.inject.Inject
 
-class MainViewModel(
+class MainViewModel @Inject constructor(
     private val mainRepository: MainRepository
 ) : ViewModel() {
 

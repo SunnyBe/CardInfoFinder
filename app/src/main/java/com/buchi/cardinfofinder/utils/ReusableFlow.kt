@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onStart
+import retrofit2.HttpException
 
 /**
  * Created by Sunday Ndu<ndusunday@gmail.com>
@@ -31,7 +32,11 @@ class ReusableFlow<T>(private val context: Context) {
         }
             .catch { ex ->
                 ex.printStackTrace()
-                emit(ResultState.error("Unable to perform operation, please try again!"))
+                if (ex is HttpException && ex.code() == 404) {
+                    emit(ResultState.error("This card does not exist. Try another card!"))
+                } else {
+                    emit(ResultState.error("Unable to perform operation, please try again!"))
+                }
             }
     }
 
@@ -59,7 +64,12 @@ class ReusableFlow<T>(private val context: Context) {
         }
             .catch { ex ->
                 ex.printStackTrace()
-                emit(ResultState.error(ex.message ?: ""))
+                if (ex is HttpException && ex.code() == 404) {
+                    emit(ResultState.error("This card does not exist. Try another card!"))
+                } else {
+                    emit(ResultState.error("Unable to perform operation, please try again!"))
+                }
+//                emit(ResultState.error(ex.message ?: ""))
             }
     }
 
